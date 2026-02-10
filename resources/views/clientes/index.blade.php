@@ -1,38 +1,40 @@
-<h1>Clientes</h1>
+<@extends('layouts.app')
 
-<a href="{{ route('clientes.create') }}">Novo Cliente</a>
+@section('title', 'Clientes')
 
-<form method="GET">
-    <select name="status">
-        <option value="">Todos</option>
-        <option value="ativo">Ativo</option>
-        <option value="inativo">Inativo</option>
-    </select>
-    <button type="submit">Filtrar</button>
-</form>
+@section('content')
 
-<table border="1">
-    <tr>
-        <th>Nome</th>
-        <th>Email</th>
-        <th>Status</th>
-        <th>Ações</th>
-    </tr>
+<a href="{{ route('clientes.create') }}" class="btn btn-primary mb-3">Novo Cliente</a>
 
-    @foreach ($clientes as $cliente)
+<table class="table table-bordered table-striped">
+    <thead class="table-light">
+        <tr>
+            <th>Nome</th>
+            <th>Email</th>
+            <th>Telefone</th>
+            <th>Status</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach($clientes as $cliente)
         <tr>
             <td>{{ $cliente->nome }}</td>
             <td>{{ $cliente->email }}</td>
-            <td>{{ $cliente->status }}</td>
+            <td>{{ $cliente->telefone }}</td>
+            <td>{{ ucfirst($cliente->status) }}</td>
             <td>
-                <a href="{{ route('clientes.edit', $cliente->id) }}">Editar</a>
+                <a href="{{ route('clientes.edit', $cliente) }}" class="btn btn-sm btn-warning">Editar</a>
 
-                <form action="{{ route('clientes.destroy', $cliente->id) }}" method="POST" style="display:inline;">
+                <form action="{{ route('clientes.destroy', $cliente) }}" method="POST" style="display:inline;">
                     @csrf
                     @method('DELETE')
-                    <button>Excluir</button>
+                    <button class="btn btn-sm btn-danger">Excluir</button>
                 </form>
             </td>
         </tr>
-    @endforeach
+        @endforeach
+    </tbody>
 </table>
+
+@endsection

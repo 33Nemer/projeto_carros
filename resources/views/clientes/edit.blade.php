@@ -1,25 +1,38 @@
-<h1>Editar Cliente</h1>
+@extends('layouts.app')
 
-<form method="POST" action="{{ route('clientes.update', $cliente->id) }}">
+@section('title', 'Editar Cliente')
+
+@section('content')
+
+<form action="{{ route('clientes.update', $cliente) }}" method="POST">
     @csrf
     @method('PUT')
 
-    <label>Nome</label><br>
-    <input type="text" name="nome" value="{{ $cliente->nome }}"><br><br>
+    <div class="mb-3">
+        <label>Nome</label>
+        <input type="text" name="nome" value="{{ $cliente->nome }}" class="form-control" required>
+    </div>
 
-    <label>Email</label><br>
-    <input type="email" name="email" value="{{ $cliente->email }}"><br><br>
+    <div class="mb-3">
+        <label>Email</label>
+        <input type="email" name="email" value="{{ $cliente->email }}" class="form-control" required>
+    </div>
 
-    <label>Senha</label><br>
-    <input type="text" name="senha" value="{{ $cliente->senha }}"><br><br>
+    <div class="mb-3">
+        <label>Telefone</label>
+        <input type="text" name="telefone" value="{{ $cliente->telefone }}" class="form-control">
+    </div>
 
-    <label>Status</label><br>
-    <select name="status">
-        <option value="ativo" {{ $cliente->status == 'ativo' ? 'selected' : '' }}>Ativo</option>
-        <option value="inativo" {{ $cliente->status == 'inativo' ? 'selected' : '' }}>Inativo</option>
-    </select><br><br>
+    <div class="mb-3">
+        <label>Status</label>
+        <select name="status" class="form-control">
+            <option value="ativo" @selected($cliente->status=='ativo')>Ativo</option>
+            <option value="inativo" @selected($cliente->status=='inativo')>Inativo</option>
+        </select>
+    </div>
 
-    <button>Atualizar</button>
+    <button class="btn btn-success">Atualizar</button>
+    <a href="{{ route('clientes.index') }}" class="btn btn-secondary">Voltar</a>
 </form>
 
-<a href="{{ route('clientes.index') }}">Voltar</a>
+@endsection
