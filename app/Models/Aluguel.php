@@ -3,13 +3,14 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Aluguel extends Model
 {
     protected $table = 'alugueis';
 
     protected $fillable = [
-        'usuario_id',
+        'cliente_id', // Mantenha o nome exato da coluna que está no seu banco
         'carro_id',
         'data_inicio',
         'data_final_prevista',
@@ -17,13 +18,16 @@ class Aluguel extends Model
         'status'
     ];
 
-    public function usuario()
+    /**
+     * Agora o Laravel vai encontrar a classe Cliente
+     */
+    public function cliente(): BelongsTo
     {
-        return $this->belongsTo(Usuario::class);
+        return $this->belongsTo(Cliente::class);
     }
 
-    public function carro()
+    public function carro(): BelongsTo
     {
-        return $this->belongsTo(Carro::class);
+        return $this->belongsTo(Carro::class, 'carro_id');
     }
 }

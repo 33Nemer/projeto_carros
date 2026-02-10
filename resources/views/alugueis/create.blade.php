@@ -3,10 +3,10 @@
 <form method="POST" action="{{ route('alugueis.store') }}">
     @csrf
 
-    <label>Usuário</label><br>
-    <select name="usuario_id">
-        @foreach ($usuarios as $usuario)
-            <option value="{{ $usuario->id }}">{{ $usuario->nome }}</option>
+    <label>Cliente</label><br>
+    <select name="cliente_id">
+        @foreach ($clientes as $cliente)
+            <option value="{{ $cliente->id }}">{{ $cliente->nome }}</option>
         @endforeach
     </select><br><br>
 
